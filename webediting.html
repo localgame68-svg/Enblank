@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Sarwade Editing - Professional Video Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 50:'#f5f5f5',100:'#e0e0e0',200:'#b0b0b0',300:'#888888',400:'#6a6a6a',500:'#4a4a4a',600:'#2d2d2d',700:'#1a1a1a',800:'#111111',900:'#0a0a0a',950:'#050505' },
+                        gold: { 300:'#f0d77b',400:'#e8c84a',500:'#d4a853',600:'#b8912e',700:'#9a7a24' },
+                        accent: { 400:'#60a5fa',500:'#3b82f6',600:'#2563eb' }
+                    },
+                    fontFamily: {
+                        inter: ['Inter','sans-serif'],
+                        playfair: ['Playfair Display','serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family:'Inter',sans-serif; background:#050505; color:#fff; overflow-x:hidden; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar-track { background:#0a0a0a; }
+        ::-webkit-scrollbar-thumb { background:#d4a853; border-radius:3px; }
+
+        /* Animations */
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInLeft { from{opacity:0;transform:translateX(-40px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes fadeInRight { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes scaleIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(212,168,83,0.3)} 50%{box-shadow:0 0 40px rgba(212,168,83,0.6)} }
+        @keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes timeline { from{width:0} to{width:100%} }
+        @keyframes hexSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes particleFloat {
+            0%,100% { transform:translateY(0) translateX(0); opacity:0.3; }
+            25% { transform:translateY(-20px) translateX(10px); opacity:0.8; }
+            50% { transform:translateY(-40px) translateX(-5px); opacity:0.5; }
+            75% { transform:translateY(-20px) translateX(-15px); opacity:0.7; }
+        }
+
+        .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-left { animation: fadeInLeft 0.8s ease-out forwards; }
+        .animate-fade-right { animation: fadeInRight 0.8s ease-out forwards; }
+        .animate-scale { animation: scaleIn 0.6s ease-out forwards; }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-slide-down { animation: slideDown 0.4s ease-out forwards; }
+
+        .delay-100 { animation-delay:0.1s; }
+        .delay-200 { animation-delay:0.2s; }
+        .delay-300 { animation-delay:0.3s; }
+        .delay-400 { animation-delay:0.4s; }
+        .delay-500 { animation-delay:0.5s; }
+        .delay-600 { animation-delay:0.6s; }
+
+        /* Scroll Reveal */
+        .reveal { opacity:0; transform:translateY(30px); transition:all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.active { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-40px); transition:all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-left.active { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(40px); transition:all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-right.active { opacity:1; transform:translateX(0); }
+        .reveal-scale { opacity:0; transform:scale(0.9); transition:all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-scale.active { opacity:1; transform:scale(1); }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #d4a853, #f0d77b, #d4a853);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Hexagon Logo */
+        .hex-logo {
+            width:50px; height:50px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: linear-gradient(135deg, #d4a853, #9a7a24);
+            display:flex; align-items:center; justify-content:center;
+            position:relative;
+        }
+        .hex-logo::before {
+            content:'';
+            position:absolute;
+            width:44px; height:44px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: #0a0a0a;
+        }
+        .hex-logo svg { position:relative; z-index:2; }
+
+        /* Particle Background */
+        .particles-container { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+        .particle {
+            position:absolute;
+            width:3px; height:3px;
+            background:#d4a853;
+            border-radius:50%;
+            animation: particleFloat linear infinite;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(17,17,17,0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212,168,83,0.15);
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(212,168,83,0.4);
+            box-shadow: 0 20px 60px -15px rgba(212,168,83,0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Button Glow */
+        .btn-gold {
+            background: linear-gradient(135deg, #d4a853, #b8912e);
+            color:#050505;
+            font-weight:600;
+            transition: all 0.3s ease;
+            position:relative;
+            overflow:hidden;
+        }
+        .btn-gold::before {
+            content:'';
+            position:absolute;
+            top:0; left:-100%; width:100%; height:100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-gold:hover::before { left:100%; }
+        .btn-gold:hover { box-shadow: 0 8px 30px rgba(212,168,83,0.4); transform:translateY(-2px); }
+
+        .btn-outline {
+            border:1px solid rgba(212,168,83,0.5);
+            color:#d4a853;
+            transition:all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background:rgba(212,168,83,0.1);
+            border-color:#d4a853;
+            transform:translateY(-2px);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position:fixed; inset:0;
+            background:rgba(0,0,0,0.8);
+            backdrop-filter:blur(8px);
+            z-index:100;
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; pointer-events:none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { opacity:1; pointer-events:all; }
+        .modal-content {
+            transform:scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .modal-overlay.active .modal-content { transform:scale(1) translateY(0); }
+
+        /* Timeline Animation */
+        .timeline-bar {
+            height:3px;
+            background: linear-gradient(90deg, #d4a853, #3b82f6, #d4a853);
+            border-radius:2px;
+            animation: timeline 3s ease-in-out infinite;
+        }
+
+        /* Input Focus */
+        .form-input {
+            background:rgba(26,26,26,0.8);
+            border:1px solid rgba(212,168,83,0.2);
+            transition:all 0.3s ease;
+        }
+        .form-input:focus {
+            outline:none;
+            border-color:#d4a853;
+            box-shadow: 0 0 0 3px rgba(212,168,83,0.1);
+        }
+
+        /* Toast */
+        .toast {
+            position:fixed; bottom:30px; right:30px;
+            padding:16px 24px;
+            border-radius:12px;
+            z-index:200;
+            transform:translateY(100px);
+            opacity:0;
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .toast.show { transform:translateY(0); opacity:1; }
+        .toast-success { background:rgba(34,197,94,0.2); border:1px solid rgba(34,197,94,0.5); color:#22c55e; }
+        .toast-error { background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.5); color:#ef4444; }
+
+        /* Nav Blur */
+        .nav-blur {
+            background:rgba(5,5,5,0.8);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid rgba(212,168,83,0.1);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height:1px;
+            background: linear-gradient(90deg, transparent, rgba(212,168,83,0.3), transparent);
+        }
+
+        /* Video Timeline Mock */
+        .video-track {
+            background: linear-gradient(90deg, 
+                #d4a853 0%, #d4a853 15%, 
+                #3b82f6 15%, #3b82f6 35%, 
+                #22c55e 35%, #22c55e 50%, 
+                #ef4444 50%, #ef4444 65%, 
+                #8b5cf6 65%, #8b5cf6 80%, 
+                #d4a853 80%, #d4a853 100%);
+            height:8px;
+            border-radius:4px;
+            opacity:0.7;
+        }
+
+        /* Social Icon Hover */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            color:#d4a853;
+            transform:translateY(-3px);
+        }
+
+        /* Profile Image Glow */
+        .profile-glow {
+            box-shadow: 0 0 40px rgba(212,168,83,0.3), 0 0 80px rgba(212,168,83,0.1);
+        }
+
+        /* Stat Counter */
+        .stat-card {
+            position:relative;
+            overflow:hidden;
+        }
+        .stat-card::after {
+            content:'';
+            position:absolute;
+            bottom:0; left:0;
+            width:100%; height:3px;
+            background: linear-gradient(90deg, #d4a853, #3b82f6);
+            transform:scaleX(0);
+            transform-origin:left;
+            transition: transform 0.6s ease;
+        }
+        .stat-card:hover::after { transform:scaleX(1); }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform:translateX(100%);
+            transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .mobile-menu.open { transform:translateX(0); }
+
+        /* Service icon container */
+        .service-icon {
+            width:56px; height:56px;
+            display:flex; align-items:center; justify-content:center;
+            border-radius:12px;
+            background: linear-gradient(135deg, rgba(212,168,83,0.15), rgba(212,168,83,0.05));
+            border:1px solid rgba(212,168,83,0.2);
+            transition:all 0.3s ease;
+        }
+        .glass-card:hover .service-icon {
+            background: linear-gradient(135deg, rgba(212,168,83,0.25), rgba(212,168,83,0.1));
+            border-color:rgba(212,168,83,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-blur fixed top-0 left-0 right-0 z-50 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto h-16 md:h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="hex-logo flex-shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+                        <path d="M35 55 L30 40 Q28 33 35 30 L48 25 Q52 23 55 26 L65 38 Q68 42 65 47 L58 55 Q55 58 50 57 Z" fill="#d4a853" opacity="0.9"/>
+                        <path d="M50 55 L55 42 Q57 37 62 38 L72 42 Q76 44 75 49 L70 58 Q68 62 64 61 Z" fill="#60a5fa" opacity="0.8"/>
+                        <circle cx="38" cy="42" r="2" fill="#f0d77b"/>
+                        <circle cx="67" cy="48" r="1.5" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-sm md:text-base font-bold tracking-tight text-white">Yash Sarwade</span>
+                    <span class="hidden sm:block text-[10px] font-medium tracking-widest uppercase text-gold-500">Editing</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#home" class="text-sm font-medium text-dark-200 hover:text-gold-500 transition-colors">Home</a>
+                <a href="#services" class="text-sm font-medium text-dark-200 hover:text-gold-500 transition-colors">Services</a>
+                <a href="#about" class="text-sm font-medium text-dark-200 hover:text-gold-500 transition-colors">About</a>
+                <a href="#contact" class="text-sm font-medium text-dark-200 hover:text-gold-500 transition-colors">Contact</a>
+                <button onclick="openModal()" class="btn-gold px-6 py-2.5 rounded-full text-sm">Get Started</button>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
+                <span id="bar1" class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+                <span id="bar2" class="w-6 h-0.5 bg-white transition-all duration-300"></span>
+                <span id="bar3" class="w-4 h-0.5 bg-white transition-all duration-300 self-end mr-2"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-dark-900/98 backdrop-blur-xl z-50 p-8 pt-24">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center text-dark-200 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col gap-6">
+            <a href="#home" onclick="toggleMobileMenu()" class="text-lg font-medium text-dark-200 hover:text-gold-500 transition-colors">Home</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="text-lg font-medium text-dark-200 hover:text-gold-500 transition-colors">Services</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="text-lg font-medium text-dark-200 hover:text-gold-500 transition-colors">About</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="text-lg font-medium text-dark-200 hover:text-gold-500 transition-colors">Contact</a>
+            <div class="section-divider my-2"></div>
+            <button onclick="openModal();toggleMobileMenu()" class="btn-gold px-6 py-3 rounded-full text-sm w-full">Get Started</button>
+        </div>
+    </div>
+    <div id="mobileOverlay" class="fixed inset-0 bg-black/60 z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+        <!-- Background Images with Overlay -->
+        <div class="absolute inset-0">
+            <img src="https://picsum.photos/seed/carspeed/1920/1080.jpg" alt="Cars Background" class="w-full h-full object-cover opacity-20" style="filter:saturate(0.5)">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark-950/80 via-dark-950/90 to-dark-950"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-950/60 via-transparent to-dark-950/60"></div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-gold-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-accent-500/5 rounded-full blur-3xl"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center max-w-4xl mx-auto pt-20">
+            <!-- Badge -->
+            <div class="animate-fade-up opacity-0 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-500/10 border border-gold-500/20 mb-8">
+                <span class="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wider uppercase text-gold-400">Available for Hire</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="animate-fade-up opacity-0 delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6">
+                Start Your<br>
+                <span class="gradient-text">Editing Journey</span><br>
+                Today
+            </h1>
+
+            <!-- Tagline -->
+            <p class="animate-fade-up opacity-0 delay-200 text-base md:text-lg text-dark-200 max-w-xl mx-auto mb-10 leading-relaxed">
+                Hire a professional editor for your content with ease. Cinematic quality, fast delivery, stunning results.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="animate-fade-up opacity-0 delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()" class="btn-gold px-8 py-4 rounded-full text-base font-semibold flex items-center gap-2 group">
+                    Get Started
+                    <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                </button>
+                <a href="#about" class="btn-outline px-8 py-4 rounded-full text-base font-medium flex items-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    Learn More
+                </a>
+            </div>
+
+            <!-- Fake Timeline Decoration -->
+            <div class="animate-fade-up opacity-0 delay-400 mt-16 max-w-md mx-auto">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="text-[10px] font-bold tracking-wider text-dark-300 uppercase">Timeline</span>
+                    <span class="text-[10px] text-dark-400">00:00 / 03:24</span>
+                </div>
+                <div class="w-full bg-dark-700 rounded-full h-1.5 overflow-hidden">
+                    <div class="timeline-bar w-full rounded-full"></div>
+                </div>
+                <div class="mt-3 flex gap-1">
+                    <div class="video-track flex-1 rounded"></div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="animate-fade-up opacity-0 delay-500 mt-12">
+                <div class="flex flex-col items-center gap-2 text-dark-400">
+                    <span class="text-xs tracking-wider uppercase">Scroll Down</span>
+                    <div class="w-5 h-8 rounded-full border border-dark-500 flex items-start justify-center p-1">
+                        <div class="w-1 h-2 bg-gold-500 rounded-full animate-bounce"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative py-20 md:py-32 px-4">
+        <div class="section-divider mb-20"></div>
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-bold tracking-[0.2em] uppercase text-gold-500 mb-4 block">What I Offer</span>
+                <h2 class="reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Professional Editing<br><span class="gradient-text">Services</span></h2>
+                <p class="reveal text-dark-300 max-w-lg mx-auto">From raw footage to cinematic masterpieces — every frame crafted with precision.</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="reveal glass-card rounded-2xl p-6 group">
+                    <div class="service-icon mb-4">
+                        <i data-lucide="scissors" class="w-6 h-6 text-gold-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Video Editing</h3>
+                    <p class="text-sm text-dark-300 leading-relaxed">Professional cuts, transitions, and storytelling for YouTube, Instagram & more.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="reveal delay-100 glass-card rounded-2xl p-6 group">
+                    <div class="service-icon mb-4">
+                        <i data-lucide="palette" class="w-6 h-6 text-gold-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Color Grading</h3>
+                    <p class="text-sm text-dark-300 leading-relaxed">Cinematic color grading that transforms ordinary footage into extraordinary visuals.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="reveal delay-200 glass-card rounded-2xl p-6 group">
+                    <div class="service-icon mb-4">
+                        <i data-lucide="music" class="w-6 h-6 text-gold-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Sound Design</h3>
+                    <p class="text-sm text-dark-300 leading-relaxed">Audio mixing, SFX, background music — immersive soundscapes for your content.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="reveal delay-300 glass-card rounded-2xl p-6 group">
+                    <div class="service-icon mb-4">
+                        <i data-lucide="type" class="w-6 h-6 text-gold-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Motion Graphics</h3>
+                    <p class="text-sm text-dark-300 leading-relaxed">Eye-catching titles, lower thirds, intros, and animated elements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Editor Profile Section -->
+    <section id="about" class="relative py-20 md:py-32 px-4 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://picsum.photos/seed/editingscreen/1920/1080.jpg" alt="Editing Background" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-950/95 to-dark-950"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <div class="section-divider mb-20"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Profile Image Side -->
+                <div class="reveal-left">
+                    <div class="relative">
+                        <!-- Main Image -->
+                        <div class="relative rounded-2xl overflow-hidden profile-glow">
+                            <img src="https://picsum.photos/seed/editorprofile/600/700.jpg" alt="Yash Sarwade" class="w-full h-[400px] md:h-[500px] object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
+                        </div>
+
+                        <!-- Floating Stats Card -->
+                        <div class="absolute -bottom-6 -right-4 md:right-6 glass-card rounded-xl p-4 animate-float">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center">
+                                    <i data-lucide="award" class="w-5 h-5 text-gold-500"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold">500+</div>
+                                    <div class="text-[10px] text-dark-300 uppercase tracking-wider">Projects Done</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Badge -->
+                        <div class="absolute top-6 -left-4 md:left-6 glass-card rounded-xl p-4 animate-float" style="animation-delay:1s">
+                            <div class="text-2xl font-black gradient-text">5+</div>
+                            <div class="text-[10px] text-dark-300 uppercase tracking-wider">Years Exp.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Info Side -->
+                <div class="reveal-right">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-gold-500 mb-4 block">About The Editor</span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+                        Meet <span class="gradient-text">Yash Sarwade</span>
+                    </h2>
+                    <p class="text-dark-200 leading-relaxed mb-4">
+                        Professional Video Editor with over 5 years of experience crafting visual stories that captivate audiences. Specializing in automotive content, cinematic edits, and social media reels.
+                    </p>
+                    <p class="text-dark-300 leading-relaxed mb-8">
+                        From car showcases to music videos, I bring your vision to life with precision editing, dynamic transitions, and professional color grading. Every project is treated with the same dedication to excellence.
+                    </p>
+
+                    <!-- Skills Tags -->
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-gold-500/10 border border-gold-500/20 text-gold-400">Premiere Pro</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-accent-500/10 border border-accent-500/20 text-accent-400">After Effects</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-400">DaVinci Resolve</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-purple-500/10 border border-purple-500/20 text-purple-400">Photoshop</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400">Automotive Edits</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">Color Grading</span>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-white counter" data-target="500">0</div>
+                            <div class="text-[10px] text-dark-300 uppercase tracking-wider mt-1">Projects</div>
+                        </div>
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-white counter" data-target="200">0</div>
+                            <div class="text-[10px] text-dark-300 uppercase tracking-wider mt-1">Clients</div>
+                        </div>
+                        <div class="stat-card glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-black text-white counter" data-target="5">0</div>
+                            <div class="text-[10px] text-dark-300 uppercase tracking-wider mt-1">Years Exp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Showcase -->
+    <section class="relative py-20 md:py-32 px-4">
+        <div class="section-divider mb-20"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-bold tracking-[0.2em] uppercase text-gold-500 mb-4 block">Portfolio</span>
+                <h2 class="reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Recent <span class="gradient-text">Works</span></h2>
+                <p class="reveal text-dark-300 max-w-lg mx-auto">A glimpse into the quality and style I bring to every project.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="reveal-scale group relative rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="https://picsum.photos/seed/carcinema1/600/400.jpg" alt="Car Edit" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase text-gold-400">Automotive</span>
+                            <h3 class="text-lg font-bold mt-1">Cinematic Car Showcase</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-scale delay-100 group relative rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="https://picsum.photos/seed/reelcontent/600/400.jpg" alt="Reel Edit" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase text-gold-400">Social Media</span>
+                            <h3 class="text-lg font-bold mt-1">Instagram Reel Edit</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-scale delay-200 group relative rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="https://picsum.photos/seed/musicvid/600/400.jpg" alt="Music Video" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase text-gold-400">Music Video</span>
+                            <h3 class="text-lg font-bold mt-1">Bass Boosted Visuals</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-scale delay-100 group relative rounded-2xl overflow-hidden cursor-pointer lg:col-span-2">
+                    <img src="https://picsum.photos/seed/carsupercar/1200/400.jpg" alt="Supercar Edit" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase text-gold-400">Automotive</span>
+                            <h3 class="text-lg font-bold mt-1">Supercar Documentary Edit</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-scale delay-200 group relative rounded-2xl overflow-hidden cursor-pointer">
+                    <img src="https://picsum.photos/seed/youtubeedit/600/400.jpg" alt="YouTube Edit" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider uppercase text-gold-400">YouTube</span>
+                            <h3 class="text-lg font-bold mt-1">Long-form Content Edit</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="relative py-20 md:py-32 px-4">
+        <div class="section-divider mb-20"></div>
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-bold tracking-[0.2em] uppercase text-gold-500 mb-4 block">How It Works</span>
+                <h2 class="reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Simple <span class="gradient-text">Process</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-[20%] right-[20%] h-px bg-gradient-to-r from-gold-500/30 via-gold-500/50 to-gold-500/30"></div>
+
+                <div class="reveal text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-dark-800 border border-gold-500/20 flex items-center justify-center relative z-10">
+                        <i data-lucide="message-circle" class="w-10 h-10 text-gold-500"></i>
+                    </div>
+                    <div class="text-xs font-bold tracking-wider text-gold-500 mb-2">STEP 01</div>
+                    <h3 class="text-lg font-bold mb-2">Send Requirement</h3>
+                    <p class="text-sm text-dark-300">Share your raw footage and tell me your vision.</p>
+                </div>
+
+                <div class="reveal delay-200 text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-dark-800 border border-gold-500/20 flex items-center justify-center relative z-10">
+                        <i data-lucide="clapperboard" class="w-10 h-10 text-gold-500"></i>
+                    </div>
+                    <div class="text-xs font-bold tracking-wider text-gold-500 mb-2">STEP 02</div>
+                    <h3 class="text-lg font-bold mb-2">I Edit Your Video</h3>
+                    <p class="text-sm text-dark-300">Professional editing with revisions until perfect.</p>
+                </div>
+
+                <div class="reveal delay-400 text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-dark-800 border border-gold-500/20 flex items-center justify-center relative z-10">
+                        <i data-lucide="download" class="w-10 h-10 text-gold-500"></i>
+                    </div>
+                    <div class="text-xs font-bold tracking-wider text-gold-500 mb-2">STEP 03</div>
+                    <h3 class="text-lg font-bold mb-2">Get Your Video</h3>
+                    <p class="text-sm text-dark-300">Receive your final video in highest quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="relative py-20 md:py-32 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-15">
+            <img src="https://picsum.photos/seed/darkcar/1920/600.jpg" alt="CTA Background" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-950/90 to-dark-950"></div>
+
+        <div class="relative z-10 max-w-3xl mx-auto text-center">
+            <div class="reveal-scale">
+                <div class="glass-card rounded-3xl p-10 md:p-16" style="animation:pulse-glow 3s ease-in-out infinite">
+                    <i data-lucide="zap" class="w-12 h-12 text-gold-500 mx-auto mb-6"></i>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Ready to Level Up<br>Your Content?</h2>
+                    <p class="text-dark-300 mb-8 max-w-md mx-auto">Don't settle for basic edits. Let's create something extraordinary together.</p>
+                    <button onclick="openModal()" class="btn-gold px-10 py-4 rounded-full text-base font-semibold inline-flex items-center gap-2 group">
+                        Hire Me Now
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative py-20 md:py-32 px-4">
+        <div class="section-divider mb-20"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal text-xs font-bold tracking-[0.2em] uppercase text-gold-500 mb-4 block">Get In Touch</span>
+                <h2 class="reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">Contact <span class="gradient-text">Me</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <a href="tel:8530572185" class="reveal glass-card rounded-2xl p-6 text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-gold-500/10 flex items-center justify-center group-hover:bg-gold-500/20 transition-colors">
+                        <i data-lucide="phone" class="w-5 h-5 text-gold-500"></i>
+                    </div>
+                    <div class="text-sm font-bold mb-1">Phone</div>
+                    <div class="text-xs text-dark-300">8530572185</div>
+                </a>
+
+                <a href="https://wa.me/918530572185" target="_blank" class="reveal delay-100 glass-card rounded-2xl p-6 text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-green-500/10 flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-green-500"></i>
+                    </div>
+                    <div class="text-sm font-bold mb-1">WhatsApp</div>
+                    <div class="text-xs text-dark-300">Chat Now</div>
+                </a>
+
+                <a href="mailto:yash@example.com" class="reveal delay-200 glass-card rounded-2xl p-6 text-center group">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-accent-500/10 flex items-center justify-center group-hover:bg-accent-500/20 transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5 text-accent-400"></i>
+                    </div>
+                    <div class="text-sm font-bold mb-1">Email</div>
+                    <div class="text-xs text-dark-300">yash@example.com</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative border-t border-dark-700">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
+                <!-- Logo & Desc -->
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="hex-logo flex-shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+                                <path d="M35 55 L30 40 Q28 33 35 30 L48 25 Q52 23 55 26 L65 38 Q68 42 65 47 L58 55 Q55 58 50 57 Z" fill="#d4a853" opacity="0.9"/>
+                                <path d="M50 55 L55 42 Q57 37 62 38 L72 42 Q76 44 75 49 L70 58 Q68 62 64 61 Z" fill="#60a5fa" opacity="0.8"/>
+                            </svg>
+                        </div>
+                        <span class="text-base font-bold">Yash Sarwade Editing</span>
+                    </div>
+                    <p class="text-sm text-dark-400 leading-relaxed">Professional video editing services for content creators, businesses, and automotive enthusiasts.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center gap-3">
+                    <span class="text-xs font-bold tracking-wider uppercase text-dark-400">Quick Links</span>
+                    <div class="flex gap-6">
+                        <a href="#home" class="text-sm text-dark-300 hover:text-gold-500 transition-colors">Home</a>
+                        <a href="#services" class="text-sm text-dark-300 hover:text-gold-500 transition-colors">Services</a>
+                        <a href="#about" class="text-sm text-dark-300 hover:text-gold-500 transition-colors">About</a>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex flex-col items-center md:items-end gap-3">
+                    <span class="text-xs font-bold tracking-wider uppercase text-dark-400">Follow Me</span>
+                    <div class="flex gap-4">
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-dark-800 border border-dark-600 flex items-center justify-center text-dark-300">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-dark-800 border border-dark-600 flex items-center justify-center text-dark-300">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full bg-dark-800 border border-dark-600 flex items-center justify-center text-dark-300">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://wa.me/918530572185" class="social-icon w-10 h-10 rounded-full bg-dark-800 border border-dark-600 flex items-center justify-center text-dark-300">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider my-8"></div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-dark-500">&copy; 2025 Yash Sarwade Editing. All rights reserved.</p>
+                <p class="text-xs text-dark-500">Crafted with <span class="text-gold-500">♦</span> passion & precision</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Signup Modal -->
+    <div id="hireModal" class="modal-overlay" onclick="closeModalOutside(event)">
+        <div class="modal-content w-full max-w-md mx-4">
+            <div class="glass-card rounded-3xl p-8 md:p-10 border-gold-500/20" style="background:rgba(10,10,10,0.95)">
+                <!-- Close Button -->
+                <button onclick="closeModal()" class="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 rounded-full bg-dark-700 flex items-center justify-center text-dark-300 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Modal Header -->
+                <div class="text-center mb-8 relative">
+                    <div class="hex-logo w-16 h-16 mx-auto mb-4">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+                            <path d="M35 55 L30 40 Q28 33 35 30 L48 25 Q52 23 55 26 L65 38 Q68 42 65 47 L58 55 Q55 58 50 57 Z" fill="#d4a853" opacity="0.9"/>
+                            <path d="M50 55 L55 42 Q57 37 62 38 L72 42 Q76 44 75 49 L70 58 Q68 62 64 61 Z" fill="#60a5fa" opacity="0.8"/>
+                            <circle cx="38" cy="42" r="2" fill="#f0d77b"/>
+                            <circle cx="67" cy="48" r="1.5" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-1">Hire a Professional</h3>
+                    <p class="text-sm text-dark-300">Fill in your details to get started</p>
+                </div>
+
+                <!-- Form -->
+                <form id="hireForm" onsubmit="handleHire(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-dark-200 mb-1.5 uppercase tracking-wider">First Name</label>
+                        <input type="text" id="firstName" required placeholder="Enter your first name"
+                            class="form-input w-full px-4 py-3 rounded-xl text-sm text-white placeholder-dark-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-dark-200 mb-1.5 uppercase tracking-wider">Last Name</label>
+                        <input type="text" id="lastName" required placeholder="Enter your last name"
+                            class="form-input w-full px-4 py-3 rounded-xl text-sm text-white placeholder-dark-500">
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="formError" class="hidden text-xs text-red-400 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20">
+                        <i data-lucide="alert-circle" class="w-3.5 h-3.5 flex-shrink-0"></i>
+                        <span id="errorText"></span>
+                    </div>
+
+                    <button type="submit" id="hireBtn" class="btn-gold w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 mt-2">
+                        <span id="btnText">Hire</span>
+                        <i data-lucide="send" class="w-4 h-4" id="btnIcon"></i>
+                        <svg id="btnSpinner" class="hidden w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="flex items-center gap-3 my-6">
+                    <div class="flex-1 h-px bg-dark-700"></div>
+                    <span class="text-[10px] text-dark-500 uppercase tracking-wider">or contact directly</span>
+                    <div class="flex-1 h-px bg-dark-700"></div>
+                </div>
+
+                <!-- WhatsApp Direct -->
+                <a href="https://wa.me/918530572185?text=Hi%20Yash%2C%20I%20want%20to%20hire%20you%20for%20video%20editing" target="_blank"
+                    class="w-full py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 bg-green-600/20 border border-green-500/30 text-green-400 hover:bg-green-600/30 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast" class="toast toast-success flex items-center gap-3">
+        <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+        <span id="toastText"></span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // ====== PARTICLES ======
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (4 + Math.random() * 8) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.opacity = 0.1 + Math.random() * 0.4;
+                particle.style.width = (1 + Math.random() * 3) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ====== SCROLL REVEAL ======
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ====== COUNTER ANIMATION ======
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const rect = counter.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50 && !counter.dataset.animated) {
+                    counter.dataset.animated = 'true';
+                    const target = parseInt(counter.dataset.target);
+                    const duration = 2000;
+                    const start = performance.now();
+                    
+                    function update(currentTime) {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        counter.textContent = Math.floor(eased * target) + (target >= 100 ? '+' : '+');
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+                    requestAnimationFrame(update);
+                }
+            });
+        }
+        window.addEventListener('scroll', animateCounters);
+        window.addEventListener('load', animateCounters);
+
+        // ====== MOBILE MENU ======
+        let mobileOpen = false;
+        function toggleMobileMenu() {
+            mobileOpen = !mobileOpen;
+            document.getElementById('mobileMenu').classList.toggle('open', mobileOpen);
+            const overlay = document.getElementById('mobileOverlay');
+            overlay.style.opacity = mobileOpen ? '1' : '0';
+            overlay.style.pointerEvents = mobileOpen ? 'all' : 'none';
+            document.body.style.overflow = mobileOpen ? 'hidden' : '';
+        }
+
+        // ====== MODAL ======
+        function openModal() {
+            document.getElementById('hireModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Re-init icons in modal
+            setTimeout(() => lucide.createIcons(), 100);
+        }
+        function closeModal() {
+            document.getElementById('hireModal').classList.remove('active');
+            document.body.style.overflow = '';
+            resetForm();
+        }
+        function closeModalOutside(e) {
+            if (e.target === e.currentTarget) closeModal();
+        }
+        // Close on Escape key
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeModal();
+                if (mobileOpen) toggleMobileMenu();
+            }
+        });
+
+        // ====== FORM HANDLING ======
+        function resetForm() {
+            document.getElementById('hireForm').reset();
+            document.getElementById('formError').classList.add('hidden');
+            document.getElementById('btnText').textContent = 'Hire';
+            document.getElementById('btnIcon').classList.remove('hidden');
+            document.getElementById('btnSpinner').classList.add('hidden');
+            document.getElementById('hireBtn').disabled = false;
+        }
+
+        function showError(msg) {
+            const errorDiv = document.getElementById('formError');
+            document.getElementById('errorText').textContent = msg;
+            errorDiv.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function handleHire(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+
+            // Validation
+            if (!firstName || !lastName) {
+                showError('Please fill in both first and last name.');
+                return;
+            }
+            if (firstName.length < 2 || lastName.length < 2) {
+                showError('Name must be at least 2 characters long.');
+                return;
+            }
+
+            // Hide error
+            document.getElementById('formError').classList.add('hidden');
+
+            // Loading state
+            document.getElementById('btnText').textContent = 'Sending...';
+            document.getElementById('btnIcon').classList.add('hidden');
+            document.getElementById('btnSpinner').classList.remove('hidden');
+            document.getElementById('hireBtn').disabled = true;
+
+            const fullName = firstName + ' ' + lastName;
+            const message = 'hire man ' + fullName;
+            const phoneNumber = '8530572185';
+
+            // Open WhatsApp with pre-filled message
+            const whatsappUrl = 'https://wa.me/91' + phoneNumber + '?text=' + encodeURIComponent(message);
+
+            // Simulate short delay for UX
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                
+                // Show success toast
+                showToast('Request sent! Complete the message on WhatsApp.', 'success');
+                
+                // Reset and close modal
+                setTimeout(() => {
+                    closeModal();
+                }, 1500);
+            }, 1200);
+        }
+
+        // ====== TOAST ======
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            
+            toast.className = 'toast toast-' + type + ' flex items-center gap-3';
+            // Re-init icon in toast
+            toast.querySelector('[data-lucide]')?.remove();
+            const icon = document.createElement('i');
+            icon.setAttribute('data-lucide', type === 'success' ? 'check-circle' : 'alert-circle');
+            icon.className = 'w-5 h-5 flex-shrink-0';
+            toast.prepend(icon);
+            lucide.createIcons();
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => toast.classList.remove('show'), 5000);
+        }
+
+        // ====== NAVBAR SCROLL EFFECT ======
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const scrollY = window.scrollY;
+            
+            if (scrollY > 100) {
+                nav.style.borderBottomColor = 'rgba(212,168,83,0.15)';
+            } else {
+                nav.style.borderBottomColor = 'rgba(212,168,83,0.1)';
+            }
+            lastScroll = scrollY;
+        });
+
+        // ====== SMOOTH SCROLL FOR ANCHOR LINKS ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
